@@ -15,18 +15,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node + pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        id: pnpm
+        with:
+          version: latest
+
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '24'
           cache: 'pnpm'
-
-      - name: Install pnpm
-        run: corepack enable && corepack prepare pnpm@latest --activate
+          cache-dependency-path: '**/pnpm-lock.yaml'
 
       - name: Install & Build
         run: |
-          pnpm install --frozen-lockfile
+          pnpm install --frozen-lockfile  # Uses root pnpm-lock.yaml
           cd frontend
           pnpm run build
 
@@ -36,4 +40,5 @@ jobs:
           path: dist
 
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
