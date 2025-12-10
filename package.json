@@ -1,0 +1,9 @@
+{
+  "name": "arboledapp",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "pnpm -F frontend dev",
+    "dev:backend": "pnpm -F backend dev"
+  }
+}
