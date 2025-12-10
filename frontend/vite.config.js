@@ -6,6 +6,7 @@ export default defineConfig({
     plugins: [react()],
     base: '/arboledapp/',
     build: {
-      outDir: '../dist'
+      outDir: '../dist',
+      emptyOutDir: true
     }
 })
