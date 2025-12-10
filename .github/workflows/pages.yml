@@ -15,17 +15,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node + pnpm
         uses: actions/setup-node@v4
         with:
           node-version: '24'
-          cache: 'npm'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: corepack enable && corepack prepare pnpm@latest --activate
 
       - name: Install & Build
         run: |
+          pnpm install --frozen-lockfile
           cd frontend
-          npm ci
-          npm run build
+          pnpm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -33,5 +36,4 @@ jobs:
           path: dist
 
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
