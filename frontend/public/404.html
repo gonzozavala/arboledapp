@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script>window.location.href = '/';</script>
+    <script>
+      var base = '/';
+      sessionStorage.redirect = location.pathname + location.search;
+      location.replace(base);
+    </script>
   </head>
+  <body></body>
 </html>
